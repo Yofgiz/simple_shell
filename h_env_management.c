@@ -65,7 +65,9 @@ int env_set_key(char *key, char *value, program_data *data)
 	}
 	/* make an string of the form key=value */
 	data->environment_variables[i] = str_concat(str_duplicate(key), "=");
-	data->environment_variables[i] = str_concat(data->environment_variables[i], value);
+	data->environment_variables[i] = str_concat(
+			data->environment_variables[i],
+			value);
 
 	if (is_new_key)
 	{/* if the variable is new, it is create at end of actual list and we need*/

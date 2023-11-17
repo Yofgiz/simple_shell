@@ -59,7 +59,8 @@ int read_input_line(program_data *data)
 *
 * Return: index of the last command in the array_commands.
 */
-int handle_logical_operators(char *array_commands[], int i, char array_operators[])
+int handle_logical_operators(char *array_commands[],
+		int i, char array_operators[])
 {
 	char *temp = NULL;
 	int j;

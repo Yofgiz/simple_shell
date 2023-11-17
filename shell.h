@@ -21,14 +21,23 @@
 
 /**
  * struct info - A struct for the program's data.
- * @executable_name: a pointer to a string representing the name of the executable program.
- * @user_input: a pointer to a string containing the input read by the read_input_line function
- * @initial_command: a pointer to a string that holds the name of the first command typed by the user.
- * @command_execution_count: a integer representing the count of executed commands. 
- * @input_file_descriptor:  an integer representing a file descriptor associated with the input of commands.
- * @tokenized_input: a pointer to an array of strings that holds tokenized input.
- * @environment_variables: a pointer to an array of strings that represents a copy of the environment variables associated with the program.
- * @alias_pointers: a pointer to an array of strings that holds pointers to aliases.
+ * @executable_name: a pointer to a string representing
+ * the name of the executable program.
+ * @user_input: a pointer to a string containing
+ * the input read by the read_input_line function
+ * @initial_command: a pointer to a string that holds
+ * the name of the first command typed by the user.
+ * @command_execution_count: a integer representing
+ * the count of executed commands.
+ * @input_file_descriptor:  an integer representing a
+ * file descriptor associated with the input of commands.
+ * @tokenized_input: a pointer to an array of
+ * strings that holds tokenized input.
+ * @environment_variables: a pointer to an array of strings
+ * that represents a copy of the environment
+ * variables associated with the program.
+ * @alias_pointers: a pointer to an array of
+ * strings that holds pointers to aliases.
  */
 typedef struct info
 {
@@ -45,7 +54,8 @@ typedef struct info
 /**
  * struct builtins - A struct for the builtins.
  * @builtin: a pointer to a string representing the name of a built-in command.
- * @function: a function pointer that points to a function associated with the specific built-in command.
+ * @function: a function pointer that points to a
+ * function associated with the specific built-in command.
  */
 typedef struct builtins
 {
@@ -75,7 +85,8 @@ void handle_ctrl_c(int opr UNUSED);
 int read_input_line(program_data *data);
 
 /* Split each line for the logical operators if it exist */
-int handle_logical_operators(char *array_commands[], int i, char array_operators[]);
+int handle_logical_operators(char *array_commands[],
+		int i, char array_operators[]);
 
 
 /*======== parse_replace.c ========*/

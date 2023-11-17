@@ -16,16 +16,16 @@ int find_program(program_data *data)
 	if (!data->initial_command)
 		return (2);
 
-	/**if is a full_path or an executable in the same path */
 	if (data->initial_command[0] == '/' || data->initial_command[0] == '.')
 		return (check_file(data->initial_command));
 
 	free(data->tokenized_input[0]);
-	data->tokenized_input[0] = str_concat(str_duplicate("/"), data->initial_command);
+	data->tokenized_input[0] = str_concat(str_duplicate("/"),
+			data->initial_command);
 	if (!data->tokenized_input[0])
 		return (2);
 
-	directories = tokenize_path(data);/* search in the PATH */
+	directories = tokenize_path(data);
 
 	if (!directories || !directories[0])
 	{
@@ -33,11 +33,11 @@ int find_program(program_data *data)
 		return (127);
 	}
 	for (i = 0; directories[i]; i++)
-	{/* appends the function_name to path */
+	{
 		directories[i] = str_concat(directories[i], data->tokenized_input[0]);
 		ret_code = check_file(directories[i]);
 		if (ret_code == 0 || ret_code == 126)
-		{/* the file was found, is not a directory and has execute permisions*/
+		{
 			errno = 0;
 			free(data->tokenized_input[0]);
 			data->tokenized_input[0] = str_duplicate(directories[i]);
@@ -64,26 +64,22 @@ char **tokenize_path(program_data *data)
 	char **tokens = NULL;
 	char *PATH;
 
-	/* get the PATH value*/
 	PATH = env_get_key("PATH", data);
 	if ((PATH == NULL) || PATH[0] == '\0')
-	{/*path not found*/
+	{
 		return (NULL);
 	}
 
 	PATH = str_duplicate(PATH);
 
-	/* find the number of directories in the PATH */
 	for (i = 0; PATH[i]; i++)
 	{
 		if (PATH[i] == ':')
 			counter_directories++;
 	}
 
-	/* reserve space for the array of pointers */
 	tokens = malloc(sizeof(char *) * counter_directories);
 
-	/*tokenize and duplicate each token of path*/
 	i = 0;
 	tokens[i] = str_duplicate(_strtok(PATH, ":"));
 	while (tokens[i++])
@@ -117,7 +113,6 @@ int check_file(char *full_path)
 		}
 		return (0);
 	}
-	/*if not exist the file*/
 	errno = 127;
 	return (127);
 }
@@ -142,16 +137,12 @@ int builtins_list(program_data *data)
 		{NULL, NULL}
 	};
 
-/*walk through the structure*/
 	for (iterator = 0; options[iterator].builtin != NULL; iterator++)
 	{
-/*if there is a match between the given command and a builtin,*/
 		if (str_compare(options[iterator].builtin, data->initial_command, 0))
 		{
-/*execute the function, and return the return value of the function*/
 			return (options[iterator].function(data));
 		}
-/*if there is no match return -1 */
 	}
 	return (-1);
 }
